@@ -6,7 +6,7 @@ Windows 10 Pro <br><br>
 1. Склонировать репозиторий <br>
 2. Изменить название файла "env.example" на "env" <br>
 3. Установить composer: composer install <br>
-4. Прописать в терминале команду: php artisan key:generate br
+4. Прописать в терминале команду: php artisan key:generate <br>
 5. Запустить сервер: php artisan serve <br><br>
 ## Клиентская часть<br>
 На последнем шаге "ticket", сделан удобный возврат на начальную страницу. Для этого надо нажать на "ИДЁМ В КИНО"<br><br>
