@@ -19,9 +19,5 @@ class HallSizeSeeder extends Seeder
            'rows' => 5,
            'cols' => 12
         ]);
-        DB::table('hall_sizes')->insert([
-            'rows' => 5,
-            'cols' => 12
-        ]);
     }
 }

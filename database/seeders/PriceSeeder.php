@@ -17,25 +17,13 @@ class PriceSeeder extends Seeder
         DB::table('prices')->insert([
             'hall_id' => 1,
             'status' => 'standart',
-            'price' => 250
+            'price' => 350
         ]);
 
         DB::table('prices')->insert([
             'hall_id' => 1,
             'status' => 'vip',
-            'price' => 350
-        ]);
-
-        DB::table('prices')->insert([
-            'hall_id' => 2,
-            'status' => 'standart',
-            'price' => 200
-        ]);
-
-        DB::table('prices')->insert([
-            'hall_id' => 2,
-            'status' => 'vip',
-            'price' => 250
+            'price' => 450
         ]);
     }
 }

@@ -18,7 +18,7 @@ class MovieSeeder extends Seeder
             'title' => 'Звёздные войны XXIII - Атака клонированных клонов',
             'duration' => 130,
             'description' => 'Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном.',
-            'country' => 'США'
+            'country' => 'США',
         ]);
         DB::table('movies')->insert([
             'title' => 'Альфа',

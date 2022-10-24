@@ -48,7 +48,7 @@ body {
     font-size: 1.2rem;
     padding: 1rem;
     background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24), 0 0 2px rgba(0, 0, 0, 0.12);
     border-radius: 2px;
     text-decoration: none;
     color: #000000;
@@ -163,7 +163,7 @@ body {
 .movie .movie-seances__hall .movie-seances__time {
     display: block;
     padding: 8px;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24), 0 0 2px rgba(0, 0, 0, 0.12);
     border-radius: 2px;
     background-color: #FFFFFF;
     color: #000000;
@@ -175,7 +175,7 @@ body {
 .acceptin-button {
     display: block;
     margin: 3rem auto 0;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.24), 0px 0px 3px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.24), 0 0 3px rgba(0, 0, 0, 0.12);
     border-radius: 3px;
     border: none;
     padding: 12px 57px;
@@ -240,12 +240,12 @@ body {
 
 .buying-scheme__wrapper {
     font-size: 0;
-    display: inline-block;
+    display: block;
     background-image: url(../i/screen.png);
     background-position: top;
     background-repeat: no-repeat;
-    background-size: 100%;
-    padding-top: 3rem;
+    background-size: 70%;
+    padding-top: 6rem;
 }
 .buying-scheme__wrapper::before {
     content: '';
@@ -286,7 +286,7 @@ body {
 
 .buying-scheme__chair_selected {
     background-color: #25C4CE;
-    box-shadow: 0px 0px 4px #16A6AF;
+    box-shadow: 0 0 4px #16A6AF;
     transform: scale(1.2);
 }
 

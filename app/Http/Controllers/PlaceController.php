@@ -49,8 +49,7 @@ class PlaceController extends Controller
                 'status' => $value['status']
             ]);
         }
-//        return redirect()->route('admin');
-        return redirect()->route('payment');
+        return redirect()->route('admin');
     }
 
     /**
@@ -79,12 +78,11 @@ class PlaceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Place  $place
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-        if ($request->HallSize['rows'] !== 0 && $request->hallSize['cols'] !== 0) {
+        if ($request->hallSize['rows'] !== 0 && $request->hallSize['rows'] !== 0) {
             $hall = HallSize::where('id', $request->result[0]['hall_id'])->first();
             $hall->rows = $request->hallSize['rows'];
             $hall->cols = $request->hallSize['cols'];
@@ -92,13 +90,12 @@ class PlaceController extends Controller
 
             $h = Hall::where('id', $request->result[0]['hall_id'])->first();
             TakenPlace::where('hall_id', $hall->id)->delete();
-
             for ($s = 0; $s < $h->seances->count(); $s++) {
                 for ($r = 0; $r < (int)$request->hallSize['rows']; $r++) {
                     for ($c = 0; $c < (int)$request->hallSize['cols']; $c++) {
                         TakenPlace::create([
                             'hall_id' => $hall->id,
-                            'seance_id' => $s +1,
+                            'seance_id' => $s + 1,
                             'row_num' => $r,
                             'seat_num' => $c,
                             'taken' => false,
@@ -123,14 +120,13 @@ class PlaceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Place  $place
+     * @param  \App\Models\Place  $seat
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         if (Place::where('hall_id', $id)->delete()) {
-//            return redirect()->route('admin');
-            return redirect()->route('payment');
+            return redirect()->route('admin');
         }
         return null;
     }

@@ -240,12 +240,12 @@ body {
 
 .buying-scheme__wrapper {
     font-size: 0;
-    display: inline-block;
+    display: block;
     background-image: url(../i/screen.png);
     background-position: top;
     background-repeat: no-repeat;
-    background-size: 100%;
-    padding-top: 3rem;
+    background-size: 70%;
+    padding-top: 6rem;
 }
 .buying-scheme__wrapper::before {
     content: '';

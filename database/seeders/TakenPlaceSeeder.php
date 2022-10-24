@@ -15,43 +15,43 @@ class TakenPlaceSeeder extends Seeder
     public function run()
     {
         DB::table('taken_places')->insert([
-           'hall_id' => 1,
-           'seance_id' => 1,
-           'row_num' => 0,
-           'seat_num' => 0,
-           'taken' => false
+            'hall_id' => 1,
+            'seance_id' => 1,
+            'row_num' => 0,
+            'seat_num' => 0,
+            'taken' => false
         ]);
 
         DB::table('taken_places')->insert([
-           'hall_id' => 1,
-           'seance_id' => 1,
-           'row_num' => 0,
-           'seat_num' => 1,
-           'taken' => false
+            'hall_id' => 1,
+            'seance_id' => 1,
+            'row_num' => 0,
+            'seat_num' => 1,
+            'taken' => false
         ]);
 
         DB::table('taken_places')->insert([
-           'hall_id' => 1,
-           'seance_id' => 1,
-           'row_num' => 0,
-           'seat_num' => 2,
-           'taken' => false
+            'hall_id' => 1,
+            'seance_id' => 1,
+            'row_num' => 0,
+            'seat_num' => 2,
+            'taken' => false
         ]);
 
         DB::table('taken_places')->insert([
-           'hall_id' => 1,
-           'seance_id' => 1,
-           'row_num' => 0,
-           'seat_num' => 3,
-           'taken' => false
+            'hall_id' => 1,
+            'seance_id' => 1,
+            'row_num' => 0,
+            'seat_num' => 3,
+            'taken' => false
         ]);
 
         DB::table('taken_places')->insert([
-           'hall_id' => 1,
-           'seance_id' => 1,
-           'row_num' => 0,
-           'seat_num' => 4,
-           'taken' => false
+            'hall_id' => 1,
+            'seance_id' => 1,
+            'row_num' => 0,
+            'seat_num' => 4,
+            'taken' => false
         ]);
 
         DB::table('taken_places')->insert([
@@ -111,27 +111,27 @@ class TakenPlaceSeeder extends Seeder
         ]);
 
         DB::table('taken_places')->insert([
-           'hall_id' => 1,
-           'seance_id' => 1,
-           'row_num' => 1,
-           'seat_num' => 0,
-           'taken' => false
+            'hall_id' => 1,
+            'seance_id' => 1,
+            'row_num' => 1,
+            'seat_num' => 0,
+            'taken' => false
         ]);
 
         DB::table('taken_places')->insert([
-           'hall_id' => 1,
-           'seance_id' => 1,
-           'row_num' => 1,
-           'seat_num' => 1,
-           'taken' => false
+            'hall_id' => 1,
+            'seance_id' => 1,
+            'row_num' => 1,
+            'seat_num' => 1,
+            'taken' => false
         ]);
 
         DB::table('taken_places')->insert([
-           'hall_id' => 1,
-           'seance_id' => 1,
-           'row_num' => 1,
-           'seat_num' => 2,
-           'taken' => false
+            'hall_id' => 1,
+            'seance_id' => 1,
+            'row_num' => 1,
+            'seat_num' => 2,
+            'taken' => false
         ]);
 
         DB::table('taken_places')->insert([

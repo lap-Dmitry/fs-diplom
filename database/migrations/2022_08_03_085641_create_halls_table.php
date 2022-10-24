@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('halls', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 255);
             $table->integer('is_active')->default(0);
         });
     }

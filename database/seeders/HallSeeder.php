@@ -18,10 +18,5 @@ class HallSeeder extends Seeder
             'name' => 'Зал 1',
             'is_active' => 1
         ]);
-
-        DB::table('halls')->insert([
-            'name' => 'Зал 2',
-            'is_active' => 0
-        ]);
     }
 }

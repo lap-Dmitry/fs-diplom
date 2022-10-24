@@ -27,8 +27,6 @@ class HallSizeRequest extends FormRequest
     public function rules()
     {
         return [
-            'rows' => ['required', 'int'],
-            'cols' => ['required', 'int'],
         ];
     }
 

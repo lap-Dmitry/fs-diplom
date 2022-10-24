@@ -74,7 +74,7 @@ class MovieShowController extends Controller
                 ]);
             }
         } else {
-            return 'Свободных билетов нет';
+            return 'Время сеанса уже занято! Выберите другое время!';
         }
     }
 

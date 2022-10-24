@@ -21,9 +21,9 @@
     <section class="buying">
         <div class="buying__info">
             <div class="buying__info-description">
-                <h2 class="buying__info-title">{{$movie_title}}</h2>
-                <p class="buying__info-start">Начало сеанса: {{$start_time}}</p>
-                <p class="buying__info-hall">{{$hall_name}}</p>
+                <h2 class="buying__info-title">{{ $movie_title }}</h2>
+                <p class="buying__info-start">Начало сеанса: {{ $start_time }}</p>
+                <p class="buying__info-hall">{{ $hall_name }}</p>
             </div>
             <div class="buying__info-hint">
                 <p>Тапните дважды,<br>чтобы увеличить</p>
@@ -32,18 +32,26 @@
 
         <div class="buying-scheme">
             <div class="buying-scheme__wrapper">
+
+
                 @for($j = 0; $j < $rows; $j++)
                     <div class="buying-scheme__row">
-                    @for($k = 0; $k < $cols; $k++) <span class="buying-scheme__chair buying-scheme__chair_{{$seats[$hall->id][$j][$k][0]}}"></span>
-                    @endfor
-                </div>
+                        @for($k = 0; $k < $cols; $k++)
+                            <span class="buying-scheme__chair buying-scheme__chair_{{ $seats[$hall->id][$j][$k][0] }}"></span>
+                        @endfor
+                    </div>
                 @endfor
             </div>
 
             <div class="buying-scheme__legend">
                 <div class="col">
-                    <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_standart"></span> Свободно (<span class="buying-scheme__legend-value">{{$hall_price_standart}}</span>руб)</p>
-                    <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_vip"></span> Свободно VIP (<span class="buying-scheme__legend-value">{{$hall_price_vip}}</span>руб)</p>
+                    @foreach($halls as $hall)
+                        @if($hall->status !== 'vip' && $hall->name === $hall_name)
+                            <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_standart"></span> Свободно (<span class="buying-scheme__legend-value">{{ $hall->price }}</span>руб)</p>
+                        @elseif($hall->status !== 'standart' && $hall->name === $hall_name)
+                            <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_vip"></span> Свободно VIP (<span class="buying-scheme__legend-value">{{ $hall->price }}</span>руб)</p>
+                        @endif
+                    @endforeach
                 </div>
                 <div class="col">
                     <p class="buying-scheme__legend-price"><span class="buying-scheme__chair buying-scheme__chair_taken"></span> Занято</p>

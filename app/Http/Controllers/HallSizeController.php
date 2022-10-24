@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\HallSizeRequest;
+use App\Http\Requests\UpdateHallSizeRequest;
 use App\Models\HallSize;
-use Illuminate\Http\Request;
+use App\Http\Requests\HallSizeRequest;
 use Illuminate\Http\Response;
 
 class HallSizeController extends Controller
@@ -90,3 +90,4 @@ class HallSizeController extends Controller
         return null;
     }
 }
+

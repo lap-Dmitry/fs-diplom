@@ -13,7 +13,7 @@
 
 <body>
 <header class="page-header">
-    <h1 class="page-header__title"><a class="title_ticket" href="{{route('index')}}">Идём<span>в</span>кино</a></h1>
+    <h1 class="page-header__title"><a class="title_ticket" href="{{ route('index') }}">Идём<span>в</span>кино</a></h1>
 </header>
 
 <main>
@@ -24,12 +24,12 @@
         </header>
 
         <div class="ticket__info-wrapper">
-            <p class="ticket__info">На фильм: <span class="ticket__details ticket__title">{{$movie_title}}</span></p>
-            <p class="ticket__info">Ряд/Место: <span class="ticket__details ticket__chairs">{{$places}}</span></p>
-            <p class="ticket__info">В зале: <span class="ticket__details ticket__hall">{{$hall_name}}</span></p>
-            <p class="ticket__info">Начало сеанса: <span class="ticket__details ticket__start">{{$start_time}}</span></p>
+            <p class="ticket__info">На фильм: <span class="ticket__details ticket__title">{{ $movie_title }}</span></p>
+            <p class="ticket__info">Ряд/Место: <span class="ticket__details ticket__chairs">{{ $places }}</span></p>
+            <p class="ticket__info">В зале: <span class="ticket__details ticket__hall">{{ $hall_name }}</span></p>
+            <p class="ticket__info">Начало сеанса: <span class="ticket__details ticket__start">{{ $start_time }}</span></p>
 
-            <p class="ticket__info-qr">{{$qr}}</p>
+            <p class="ticket__info-qr">{{ $qr }}</p>
 
             <p class="ticket__hint">Покажите QR-код нашему контроллеру для подтверждения бронирования.</p>
             <p class="ticket__hint">Приятного просмотра!</p>

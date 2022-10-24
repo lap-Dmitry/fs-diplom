@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Response;
 
-class MovieRequest extends FormRequest
+class UpdateHallSizeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +27,8 @@ class MovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string'],
-            'duration' => ['required', 'int'],
-            'description' => ['required', 'string'],
-            'country' => ['required', 'string'],
+            'rows' => ['required', 'int'],
+            'cols' => ['required', 'int'],
         ];
     }
 

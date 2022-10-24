@@ -10,6 +10,7 @@ use App\Models\MovieShow;
 use App\Models\Place;
 use App\Models\Price;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class HallController extends Controller
@@ -27,8 +28,7 @@ class HallController extends Controller
         if (Auth::user()->is_admin !== '1') {
             return redirect('/index');
         }
-        return view('admin.admin', [
-            'seats' => $this->seats(), 'hallSeances' => $this->hallSeances(), 'hallIsActive' => $this->activeHall()
+        return view('admin.admin', ['seats' => $this->seats(), 'hallSeances' => $this->hallSeances(), 'hallIsActive' => $this->activeHall()
         ]);
     }
 
@@ -45,7 +45,7 @@ class HallController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  HallRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(HallRequest $request)
@@ -58,7 +58,6 @@ class HallController extends Controller
     /**
      * Display the specified resource.
      *
-//     * @param  \App\Models\Hall  $hall
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
@@ -106,22 +105,22 @@ class HallController extends Controller
     }
 
     /**
-     * Set active hall
+     * Set hall active status
      *
      * @param  int $id
      * @param bool $is_active
-     * @return string[]
+     * @return \Illuminate\Http\Response
      */
 
     public function setActive(Request $request)
     {
         $hall = Hall::findOrFail($request->id);
         if ($hall->is_active == true) {
-            $hall->is_active == false;
+            $hall->is_active = false;
             $hall->save();
             return ['Открыть продажу билетов', 'Зал Готов к открытию'];
         } else {
-            if (!Seat::where('hall_id', $hall->id)->first()) {
+            if (!Place::where('hall_id', $hall->id)->first()) {
                 $hall->is_active = false;
                 return ['Открыть продажу билетов', 'Установите конфигурацию цен в зале'];
             }
