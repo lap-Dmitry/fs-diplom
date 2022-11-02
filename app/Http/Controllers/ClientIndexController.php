@@ -10,17 +10,29 @@ class ClientIndexController extends Controller
 {
     public function index()
     {
-        $halls = Hall::with('seances')->get();
-        return view('client.index', ['hallsShow' => $this->movieShow(), 'weekDayRus' => $this->getWeekDayRus()], compact('halls'));
+        $movies = Movie::all();
+        $halls = Hall::where('is_active', 1)->with('seances')->get();
+        return view('client.index', ['hallsShow' => $this->movieShow($halls, $movies), 'weekDayRus' => $this->getWeekDayRus()], compact('halls'));
     }
 
-    public function movieShow() {
-        $movies = Movie::join('movie_shows', 'movie_shows.id', '=', 'movies.id')
-            ->join('halls', 'halls.id', '=', 'movies.id')
-            ->get();
+    public function movieShow($halls, $movies) {
         $arr = [];
         for($i = 0; $i < $movies->count(); $i++) {
-            $arr[$i] = [];
+            for($j = 0; $j < count($halls); $j++) {
+                $arr[$i][$j] = [];
+                try {
+                    $hallId = $halls[$j]->seances->where('movie_id', $movies[$i]->id)->first()->hall_id;
+                    $hallName = $halls->where('id', $hallId)->first()->name;
+                    $isActive = $halls->where('id', $hallId)->first()->is_active;
+                    if($isActive) {
+                        array_push($arr[$i][$j], $hallName);
+                    } else {
+                        array_push($arr[$i][$j], null);
+                    }
+                } catch (\Exception $e) {
+                    array_push($arr[$i][$j], null);
+                }
+            }
         }
         return $arr;
     }

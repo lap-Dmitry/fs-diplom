@@ -19,8 +19,9 @@ class ClientTicketController extends Controller
         $takenPlaces = $_GET['taken_places'];
         $QRtext = 'Фильм: ' . $movie_title . PHP_EOL . 'Зал: ' . $hall_name . PHP_EOL . 'Ряд/Место: ' . $places . PHP_EOL . PHP_EOL . 'Начало сеанса: ' . $start_time;
         $qr = QrCode::encoding('UTF-8')->size(200)->generate($QRtext);
+        $takenSeats = TakenPlace::all();
 
-        $this->hallUpdate($hall_name, $start_time, $takenPlaces);
+        $this->hallUpdate($hall_name, $start_time, $takenPlaces, $takenSeats);
 
         return view('client.ticket', [
             'hall_name' => $hall_name,
@@ -31,12 +32,12 @@ class ClientTicketController extends Controller
         ]);
     }
 
-    public function hallUpdate($hallName, $seance, $takenPlaces) {
+    public function hallUpdate($hallName, $seance, $takenPlaces, $takenSeats) {
         $hall_id = Hall::where('name', $hallName)->first()->id;
         $seance_id = MovieShow::where('hall_id', $hall_id)->where('start_time', $seance)->first()->id;
 
         foreach ($takenPlaces as $key) {
-            $seat = TakenPlace::where('hall_id', $hall_id)->where('seance_id', $seance_id)->where('row_num', $key['row'] - 1)->where('seat_num', $key['place'] - 1)->first();
+            $seat = $takenSeats->where('hall_id', $hall_id)->where('seance_id', $seance_id)->where('row_num', $key['row'] - 1)->where('seat_num', $key['place'] - 1)->first();
             $seat->taken = 1;
             $seat->save();
         }

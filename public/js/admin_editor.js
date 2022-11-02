@@ -1,4 +1,4 @@
-// 1 Управление залами При добавлении зала выводит ошибку "undefined array key" 422 hall_size???
+// 1 Управление залами
 let trashHall = Array.from(document.querySelectorAll('[data-delHall-id]'));
 let deletePopup = document.getElementById('deletePopup');
 let delModalDismiss = document.getElementById('delModalDismiss');
@@ -89,7 +89,7 @@ $(document).ready(function () {
 })
 
 
-// 2 Конфигурация залов... Не изменяет схему зала???
+// 2 Конфигурация залов
 
 const rowCount = document.getElementById('input_rows_count');
 const placeCount = document.getElementById('input_places_count');

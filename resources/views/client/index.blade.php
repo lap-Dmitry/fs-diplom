@@ -49,20 +49,20 @@
             </div>
 
             @for($k = 0; $k < $halls->count(); $k++)
-                @foreach($halls[$k]->seances->where('movie_id', $movies[$i]->id)->where('hall_id', $halls[$k]->id) as $key)
-                    @if($halls[$k]->is_active !== 0)
-                        <div class="movie-seances__hall">
-                            <h3 class="movie-seances__hall-title">{{ $halls[$k]->name }}</h3>
-                            <ul class="movie-seances__list">
+                @if($hallsShow[$i][$k][0] !== null)
+                    <div class="movie-seances__hall">
+                        <h3 class="movie-seances__hall-title">{{ $hallsShow[$i][$k][0] }}</h3>
+                        <ul class="movie-seances__list">
+                            @foreach($halls[$k]->seances->where('movie_id', $movies[$i]->id)->where('hall_id', $halls[$k]->id) as $key)
                                 <li class="movie-seances__time-block">
                                     <a class="movie-seances__time" href="{{ route('client_hall', ['hall_name' => $halls[$k]->name, 'movie' => $movies[$i]->title, 'start_time' => $key->start_time]) }}">
                                         {{ $key->start_time }}
                                     </a>
                                 </li>
-                            </ul>
-                        </div>
-                    @endif
-                @endforeach
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             @endfor
         </section>
     @endfor

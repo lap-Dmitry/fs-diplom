@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
 
 class HallController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -23,13 +22,15 @@ class HallController extends Controller
      */
     public function index()
     {
-        $halls = Hall::all();
+        $halls = Hall::with('seances', 'seats')->join('hall_sizes', 'hall_sizes.id', '=', 'halls.id')->get();
+        $movie = Movie::all();
+        $movieShow = MovieShow::all();
 
         if (Auth::user()->is_admin !== '1') {
             return redirect('/index');
         }
-        return view('admin.admin', ['seats' => $this->seats(), 'hallSeances' => $this->hallSeances(), 'hallIsActive' => $this->activeHall()
-        ]);
+        return view('admin.admin', ['seats' => $this->seats($halls), 'hallSeances' => $this->hallSeances($halls, $movie), 'hallIsActive' => $this->activeHall($halls, $movieShow)
+        ], compact('halls'));
     }
 
     /**
@@ -122,7 +123,7 @@ class HallController extends Controller
         } else {
             if (!Place::where('hall_id', $hall->id)->first()) {
                 $hall->is_active = false;
-                return ['Открыть продажу билетов', 'Установите конфигурацию цен в зале'];
+                return ['Открыть продажу билетов', 'Установите конфигурацию зала'];
             }
             if (!Price::where('hall_id', $hall->id)->first()) {
                 $hall->is_active = false;
@@ -134,18 +135,17 @@ class HallController extends Controller
         }
     }
 
-    public function hallSeances()
+    public function hallSeances($halls, $movie)
     {
-        $halls = Hall::all();
         $arr = [];
 
         for ($i = 0; $i < $halls->count(); $i++) {
             for ($j = 0; $j < $halls[$i]->seances->count(); $j++) {
                 $arr[$halls[$i]->id][$j] = [];
                 try {
-                    $d = (int)(Movie::where('id', $halls[$i]->seances[$j]->movie_id)->first()->duration) / 2;
+                    $d = (int)($movie->where('id', $halls[$i]->seances[$j]->movie_id)->first()->duration) / 2;
                     $st = (int)($halls[$i]->seances[$j]->start_time) * 30;
-                    $mn = Movie::where('id', $halls[$i]->seances[$j]->movie_id)->first()->title;
+                    $mn = $movie->where('id', $halls[$i]->seances[$j]->movie_id)->first()->title;
                     array_push($arr[$halls[$i]->id][$j], $d);
                     array_push($arr[$halls[$i]->id][$j], $st);
                     array_push($arr[$halls[$i]->id][$j], $mn);
@@ -157,12 +157,11 @@ class HallController extends Controller
         return $arr;
     }
 
-    public function seats()
+    public function seats($halls)
     {
         $arr = [];
-        $hallSize = HallSize::all();
-        foreach ($hallSize as $key => $value) {
-            $hall = Hall::where('id', $value->id)->first();
+        foreach ($halls as $key => $value) {
+            $hall = $halls->where('id', $value->id)->first();
             for ($i = 0; $i < $value->rows; $i++) {
                 for ($j = 0; $j < $value->cols; $j++) {
                     $arr[$hall->name][$i][$j] = [];
@@ -178,13 +177,12 @@ class HallController extends Controller
         return $arr;
     }
 
-    public function activeHall()
+    public function activeHall($halls, $movieShow)
     {
-        $halls = Hall::all();
         $arr = [];
         foreach ($halls as $key => $value) {
             $arr[$value->id] = [];
-            if (MovieShow::where('hall_id', $value->id)->first()) {
+            if ($movieShow->where('hall_id', $value->id)->first()) {
                 array_push($arr[$value->id], 'is_active');
             } else {
                 array_push($arr[$value->id], null);

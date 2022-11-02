@@ -5,28 +5,28 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Hall;
 use App\Models\MovieShow;
-use App\Models\HallSize;
-use App\Models\Price;
 use Illuminate\Http\Request;
 
 class ClientHallController extends Controller
 {
     public function index()
     {
-        $halls = Hall::join('prices', 'prices.hall_id', '=', 'halls.id')
-            ->select('halls.*', 'prices.status', 'prices.price')
+        $halls = Hall::where('is_active', 1)
+            ->join('prices', 'prices.hall_id', '=', 'halls.id')
+            ->join('hall_sizes', 'hall_sizes.id', '=', 'halls.id')
+            ->select('halls.*', 'prices.status', 'prices.price', 'hall_sizes.rows', 'hall_sizes.cols')
             ->with('seats', 'takenSeat')
             ->get();
         $hall_name = $_GET['hall_name'];
         $hall = $halls->where('name', $hall_name)->first();
         $movie_title = $_GET['movie'];
         $start_time = $_GET['start_time'];
-        $hallSizes = HallSize::all();
+        $movie = MovieShow::all();
 
-        $rows = $hallSizes->where('id', $hall->id)->first()->rows;
-        $cols = $hallSizes->where('id', $hall->id)->first()->cols;
+        $rows = $halls->where('id', $hall->id)->first()->rows;
+        $cols = $halls->where('id', $hall->id)->first()->cols;
 
-        $seats = $this->seats($start_time, $hallSizes, $halls);
+        $seats = $this->seats($start_time, $halls, $movie);
 
         return view('client.hall', [
             'hall_name' => $hall_name,
@@ -39,10 +39,9 @@ class ClientHallController extends Controller
         ], compact('halls'));
     }
 
-    public function seats($start_time, $hallSizes, $halls)
+    public function seats($start_time, $halls, $movie)
     {
-        $movie = MovieShow::all();
-        foreach ($hallSizes as $key => $value) {
+        foreach ($halls as $key => $value) {
             $hall = $halls->where('id', $value->id)->first();
             $rows = $value->rows;
             $cols = $value->cols;
